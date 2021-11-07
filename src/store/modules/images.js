@@ -1,4 +1,6 @@
-import api from '../../api/google'
+// import api from '../../api/google'
+import api from '../../api/imgur'
+import { router } from '../../main'
 
 const state = {
   images: [],
@@ -19,12 +21,20 @@ const actions = {
     const { token } = rootState.auth
     const response = await api.fetchImages(token)
     console.log(response)
-    commit('setImages', response.data.mediaItems)
+    // commit('setImages', response.data.mediaItems) for google images api
+    commit('setImages', response.data.data) // for imgur images spi
   },
 
-  uploadImages: async ({ commit }, images) => {
-    commit('')
-    console.log(images)
+  uploadImages: async ({ rootState }, images) => {
+    // get access token
+    const { token } = rootState.auth
+
+    // calling google api for uploading files
+    // await api.upload(images, token)
+    await api.upload(images, token)
+
+    // redirect our user to ImageList page
+    router.push('/')
   },
 }
 

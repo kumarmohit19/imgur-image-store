@@ -1,4 +1,5 @@
-import api from '../../api/google'
+// import api from '../../api/google'
+import api from '../../api/imgur'
 import qs from 'qs' // to create url
 import { router } from '../../main' // to navigate user around application w/o fullpage reload
 
