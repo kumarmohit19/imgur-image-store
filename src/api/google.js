@@ -1,9 +1,10 @@
 import qs from 'qs' // for query formation
+import axios from 'axios' // for https request
 
 const CLIENT_ID =
   '478018972401-m6dbvsq9r7hsn3thti0curbn88e1eunv.apps.googleusercontent.com'
 const ROOT_URL = 'https://accounts.google.com/o/oauth2/v2/auth?'
-// const PHOTOS_URL = 'https://photoslibrary.googleapis.com/v1/mediaItems'
+const PHOTOS_URL = 'https://photoslibrary.googleapis.com/v1/mediaItems'
 
 export default {
   login() {
@@ -16,5 +17,13 @@ export default {
       redirect_uri: 'http://localhost:8080/oauth2/callback',
     }
     window.location = `${ROOT_URL}?${qs.stringify(querystring)}`
+  },
+
+  fetchImages(token) {
+    return axios.get(`${PHOTOS_URL}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
   },
 }
